@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Map of caffe</title>
+
+    <!--<style type="text/css">
+        #fabriccanvas{
+        border:dotted;
+        border-color:#000;
+        }
+    </style> -->
+
+    <script type="text/javascript" src="js/fabric.js"></script>
+    <script type="text/javascript" src="js/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="js/requestsAJAX.js"></script>
+    <script type="text/javascript" src="js/draw.js"></script>
+    <script type="text/javascript">
+        function setJson(json){
+            Android.setJson(json);
+        }
+    </script>
+    <script type="text/javascript">
+        function getWidth(){
+            return Android.getWidth();
+        }
+    </script>
+    <script type="text/javascript">
+        function getHeight(){
+            return Android.getHeight();
+        }
+    </script>
+    <script type="text/javascript">
+            function onLoad() {
+                var can = document.getElementById("fabriccanvas");
+                canvas = new fabric.Canvas(can);
+                var width = getWidth();
+                var height = getHeight();
+                var json = getData(width, height);
+                setJson(json);
+                
+            }
+
+    </script>
+</head>
+
+<body onload="onLoad()">
+    <canvas id="fabriccanvas" height="500" width="900">
+</canvas>
+
+
+</body>
+</html>

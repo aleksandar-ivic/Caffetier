@@ -1,0 +1,30 @@
+package com.example.caffetier.app.util;
+
+import android.app.Activity;
+import android.graphics.Typeface;
+import android.view.View;
+import android.widget.TextView;
+
+import com.example.caffetier.app.domain.Opstina;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by Aleksandar on 29-Jul-14.
+ */
+public class Util {
+
+    public static Typeface FONT_HEADINGS;
+    public static ArrayList<Opstina> allAreas = new ArrayList<Opstina>();
+    public static String projectID = "204476649954";
+
+    public static void setActionBarTitleFont(Activity activity){
+        int titleId = activity.getResources().getIdentifier("action_bar_title", "id",
+                "android");
+        TextView yourTextView = (TextView) activity.findViewById(titleId);
+        yourTextView.setTextSize(16);
+        yourTextView.setTypeface(Util.FONT_HEADINGS);
+    }
+
+}

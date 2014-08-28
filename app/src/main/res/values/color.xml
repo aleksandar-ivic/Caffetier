@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="title">#3D828B</color>
+    <color name="item_normal_begin">#BF8A45</color>
+    <color name="item_normal_end">#332419</color>
+    <color name="item_pressed">#A72B19</color>
+    <color name="background">#F3E8D2</color>
+    <color name="help_color">#FF847A</color>
+    <color name="black">#000</color>
+</resources>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pre-dex-items>
+
+    <item
+        dex="C:\Users\Aleksandar\AndroidStudioProjects\Caffetier\app\build\intermediates\pre-dexed\debug\support-annotations-20.0.0-140f2f35a947a1cc83d8dbd37a90f035108b8fdd.jar"
+        jar="C:\Users\Aleksandar\Android\android-sdk\extras\android\m2repository\com\android\support\support-annotations\20.0.0\support-annotations-20.0.0.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="9d9013e9ff35fc3756411e62873c363c70c638fa"/>
+    <item
+        dex="C:\Users\Aleksandar\AndroidStudioProjects\Caffetier\app\build\intermediates\pre-dexed\debug\internal_impl-20.0.0-dfe7747b4dd73e7b38d9d362727c8da65fa43697.jar"
+        jar="C:\Users\Aleksandar\AndroidStudioProjects\Caffetier\app\build\intermediates\exploded-aar\com.android.support\support-v4\20.0.0\libs\internal_impl-20.0.0.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="e40b3078e3fbd353c9f44da8df25a8fc0078209d"/>
+    <item
+        dex="C:\Users\Aleksandar\AndroidStudioProjects\Caffetier\app\build\intermediates\pre-dexed\debug\classes-7e9340295741369c90f7d675c631092b9f705d3c.jar"
+        jar="C:\Users\Aleksandar\AndroidStudioProjects\Caffetier\app\build\intermediates\exploded-aar\com.android.support\gridlayout-v7\19.1.0\classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="af4cc326e6cd92f88db12298767e521743aedd36"/>
+    <item
+        dex="C:\Users\Aleksandar\AndroidStudioProjects\Caffetier\app\build\intermediates\pre-dexed\debug\httpclient-4.1.1-8804ad17e39f9372c058d6816e9a9c6f53c2a521.jar"
+        jar="C:\Users\Aleksandar\AndroidStudioProjects\Caffetier\app\libs\httpclient-4.1.1.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="3d1d918f32709e33ba7ddb2c4e8d1c543ebe713e"/>
+    <item
+        dex="C:\Users\Aleksandar\AndroidStudioProjects\Caffetier\app\build\intermediates\pre-dexed\debug\google-play-services-72c7520564382925ad29dd71dbf9900a01f86a3a.jar"
+        jar="C:\Users\Aleksandar\AndroidStudioProjects\Caffetier\app\libs\google-play-services.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="2b1fa7915f859dfc49f506db64fdf1374e2a5497"/>
+    <item
+        dex="C:\Users\Aleksandar\AndroidStudioProjects\Caffetier\app\build\intermediates\pre-dexed\debug\org.apache.commons.logging-1.1.1-264e00466f9af4c2b19605d75857fda03449a095.jar"
+        jar="C:\Users\Aleksandar\AndroidStudioProjects\Caffetier\app\libs\org.apache.commons.logging-1.1.1.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="7657caf2c78e1d79c74d36f2ae128a115f7cc180"/>
+    <item
+        dex="C:\Users\Aleksandar\AndroidStudioProjects\Caffetier\app\build\intermediates\pre-dexed\debug\classes-581be40854414c2b9cd6c80d34b53349f6a3f723.jar"
+        jar="C:\Users\Aleksandar\AndroidStudioProjects\Caffetier\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\20.0.0\classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="f21927d22fe31889ecce94dd697a2e75b137e0ef"/>
+    <item
+        dex="C:\Users\Aleksandar\AndroidStudioProjects\Caffetier\app\build\intermediates\pre-dexed\debug\classes-76af06a77cd772736885190808d1f3c79f94b4a3.jar"
+        jar="C:\Users\Aleksandar\AndroidStudioProjects\Caffetier\app\build\intermediates\exploded-aar\com.android.support\support-v4\20.0.0\classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="8694693636ab36910c8100ce527c258ff3ebece0"/>
+    <item
+        dex="C:\Users\Aleksandar\AndroidStudioProjects\Caffetier\app\build\intermediates\pre-dexed\debug\classes-8b05c4be2140ef4b864808b8881e4fb3b99a544a.jar"
+        jar="C:\Users\Aleksandar\AndroidStudioProjects\Caffetier\app\build\intermediates\exploded-aar\com.google.android.gms\play-services\5.0.89\classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="d71573c9c5ea98a8db47ad6ff993a63d492b3bfa"/>
+
+</pre-dex-items>
