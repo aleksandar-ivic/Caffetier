@@ -2,7 +2,6 @@ package com.example.caffetier.app;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +11,9 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,7 +45,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class HomeFragment extends android.support.v4.app.Fragment {
+public class HomeFragment extends Fragment {
 
     Spinner spinner;
     ImageView imageViewLocationPin;
@@ -52,7 +54,64 @@ public class HomeFragment extends android.support.v4.app.Fragment {
 
     public HomeFragment() {
     }
+/*
+    @Override
+    public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
+        super.onCreateView(parent, name, context, attrs);
+        setContentView(R.layout.fragment_home);
 
+        Util.setActionBarTitleFont(this);
+
+
+        TextView textView1 = (TextView) parent.findViewById(R.id.textView);
+        TextView textView2 = (TextView) parent.findViewById(R.id.textView2);
+
+        textView1.setTypeface(Util.FONT_HEADINGS);
+        textView2.setTypeface(Util.FONT_HEADINGS);
+
+
+
+        mProgressDialog = new ProgressDialog(this, R.style.MyProgressDialog);
+        mProgressDialog.setCanceledOnTouchOutside(false);
+        mProgressDialog.setCancelable(false);
+
+
+        imageViewLocationPin = (ImageView) parent.findViewById(R.id.imageView);
+        imageViewLocationPin.setImageResource(R.drawable.pin);
+        final Animation animationFadeIn = AnimationUtils.loadAnimation(this, R.anim.fadein);
+        final Animation animationFadeOut = AnimationUtils.loadAnimation(this
+                , R.anim.fadeout);
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                imageViewLocationPin.startAnimation(animationFadeIn);
+                imageViewLocationPin.startAnimation(animationFadeOut);
+            }
+        };
+        Thread thread = new Thread(runnable);
+        thread.start();
+
+
+        if (isConnected()) {
+            new HttpAsyncTask(this, parent).execute("https://178.33.216.114/opstine/");
+        }
+
+
+        Button button = (Button) parent.findViewById(R.id.buttonIzaberi);
+        button.setTypeface(Util.FONT_HEADINGS);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), CaffesInAreaActivity.class);
+                Opstina izabranaOpstina = (Opstina) spinner.getSelectedItem();
+                intent.putExtra("Opstina", izabranaOpstina);
+                startActivity(intent);
+
+            }
+        });
+
+        return parent;
+    }*/
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -119,7 +178,7 @@ public class HomeFragment extends android.support.v4.app.Fragment {
         try {
 
             // create HttpClient
-            HttpClient httpclient = new MyHttpClient(getActivity().getApplicationContext());
+            HttpClient httpclient = new MyHttpClient(getActivity());
 
             // make GET request to the given URL
             HttpResponse httpResponse = httpclient.execute(new HttpGet(url));
@@ -214,7 +273,7 @@ public class HomeFragment extends android.support.v4.app.Fragment {
             if (result == true) {
 
                 if (spinner != null) {
-                    Context context = getActivity().getApplicationContext();
+                    Context context = getActivity();
                     MySpinnerAdapter adapter = new MySpinnerAdapter(context, R.layout.spinner_item, opstine);
                     //adapter.setDropDownViewResource(R.layout.spinner_item);
                     spinner.setAdapter(adapter);

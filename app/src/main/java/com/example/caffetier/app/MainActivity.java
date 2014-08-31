@@ -8,6 +8,8 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -188,7 +190,7 @@ public class MainActivity extends ActionBarActivity {
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     private void displayView(int position) {
         // update the main content by replacing fragments
-        android.support.v4.app.Fragment fragment = null;
+        Fragment fragment = null;
         switch (position) {
             case 0:
                 fragment = new HomeFragment();

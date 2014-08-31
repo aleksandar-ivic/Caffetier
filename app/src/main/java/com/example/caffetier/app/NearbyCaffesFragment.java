@@ -3,6 +3,7 @@ package com.example.caffetier.app;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
@@ -15,9 +16,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -63,17 +66,19 @@ public class NearbyCaffesFragment extends Fragment implements GooglePlayServices
         allCaffes = new ArrayList<Caffe>();
     }
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        if (rootView != null) {
+            ViewGroup parent = (ViewGroup) rootView.getParent();
+            if (parent != null)
+                parent.removeView(rootView);
+        }
 
-        SupportMapFragment mapa = (SupportMapFragment) MainActivity.fragmentManager.findFragmentById(R.id.location_map_all);
-            if (mapa == null){
-                mapa = SupportMapFragment.newInstance();
-                MainActivity.fragmentManager.beginTransaction().replace(R.id.frame_container, mapa).commit();
-            }
-            googleMap = (mapa).getMap();
+
 
         if (isConnected()) {
             mProgressDialog = new ProgressDialog(getActivity(), R.style.MyProgressDialog);
@@ -84,22 +89,32 @@ public class NearbyCaffesFragment extends Fragment implements GooglePlayServices
 
 
         locationClient = new LocationClient(getActivity(), this, this);
+
+
+        try{
+            rootView = inflater.inflate(R.layout.fragment_nearby_caffes, container, false);
+        } catch (InflateException ex){
+            setUpMapIfNeeded();
+            return rootView;
+        }
+
         setUpMapIfNeeded();
-        rootView = inflater.inflate(R.layout.fragment_nearby_caffes, container, false);
         return rootView;
     }
 
-
-
     @Override
-    public void onStop() {
-        super.onStop();
-        //getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
-    }
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        if (googleMap != null)
+            setUpMap();
 
-    @Override
-    public void onResume() {
-        super.onResume();
+        if (googleMap == null) {
+            // Try to obtain the map from the SupportMapFragment.
+            googleMap = ((SupportMapFragment) MainActivity.fragmentManager
+                    .findFragmentById(R.id.location_map)).getMap();
+            // Check if we were successful in obtaining the map.
+            if (googleMap != null)
+                setUpMap();
+        }
     }
 
     @Override
@@ -113,7 +128,12 @@ public class NearbyCaffesFragment extends Fragment implements GooglePlayServices
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        locationClient.disconnect();
+        if (googleMap != null) {
+            MainActivity.fragmentManager.beginTransaction()
+                    .remove(MainActivity.fragmentManager.findFragmentById(R.id.location_map_all)).commit();
+            googleMap = null;
+        }
+
     }
 
     private void setUpMapIfNeeded() {
@@ -131,20 +151,6 @@ public class NearbyCaffesFragment extends Fragment implements GooglePlayServices
         googleMap.setMyLocationEnabled(true);
     }
 
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        if (googleMap != null)
-            setUpMap();
-
-        if (googleMap == null) {
-            // Try to obtain the map from the SupportMapFragment.
-            googleMap = ((SupportMapFragment) MainActivity.fragmentManager
-                    .findFragmentById(R.id.location_map)).getMap();
-            // Check if we were successful in obtaining the map.
-            if (googleMap != null)
-                setUpMap();
-        }
-    }
 
     public boolean isConnected() {
         ConnectivityManager connMgr = (ConnectivityManager) getActivity().getSystemService(Activity.CONNECTIVITY_SERVICE);
@@ -221,8 +227,8 @@ public class NearbyCaffesFragment extends Fragment implements GooglePlayServices
                     json = jsonArray.getJSONObject(i);
                     int opstinaID = json.getInt("opstina");
                     String nazivOpstine = "";
-                    for (Opstina opstina : Util.allAreas){
-                        if (opstinaID == opstina.id){
+                    for (Opstina opstina : Util.allAreas) {
+                        if (opstinaID == opstina.id) {
                             nazivOpstine = opstina.naziv;
                         }
                     }
@@ -237,7 +243,7 @@ public class NearbyCaffesFragment extends Fragment implements GooglePlayServices
                     Caffe caffe = new Caffe(naziv, adresa, opstina, url, logoURL, logoID, lat, lng);
                     allCaffes.add(caffe);
                 }
-            } catch (JSONException e){
+            } catch (JSONException e) {
                 e.printStackTrace();
                 return false;
             }
@@ -267,7 +273,7 @@ public class NearbyCaffesFragment extends Fragment implements GooglePlayServices
                 CameraPosition myPosition = new CameraPosition.Builder()
                         .target(myLatLng).zoom(17).bearing(90).tilt(30).build();
 
-                for (Caffe caffe: allCaffes) {
+                for (Caffe caffe : allCaffes) {
                     LatLng latLng = new LatLng(caffe.lat, caffe.lng);
                     String naziv = caffe.naziv;
                     MarkerOptions marker = new MarkerOptions().position(latLng).title(naziv);
