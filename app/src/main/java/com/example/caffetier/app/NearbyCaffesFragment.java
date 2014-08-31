@@ -20,6 +20,7 @@ import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -78,8 +79,6 @@ public class NearbyCaffesFragment extends Fragment implements GooglePlayServices
                 parent.removeView(rootView);
         }
 
-
-
         if (isConnected()) {
             mProgressDialog = new ProgressDialog(getActivity(), R.style.MyProgressDialog);
             mProgressDialog.setCanceledOnTouchOutside(false);
@@ -128,12 +127,6 @@ public class NearbyCaffesFragment extends Fragment implements GooglePlayServices
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (googleMap != null) {
-            MainActivity.fragmentManager.beginTransaction()
-                    .remove(MainActivity.fragmentManager.findFragmentById(R.id.location_map_all)).commit();
-            googleMap = null;
-        }
-
     }
 
     private void setUpMapIfNeeded() {

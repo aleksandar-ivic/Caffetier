@@ -2,11 +2,13 @@ package com.example.caffetier.app;
 
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -20,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.caffetier.app.adapter.NavDrawerListAdapter;
 import com.example.caffetier.app.model.NavDrawerItem;
@@ -49,6 +52,9 @@ public class MainActivity extends ActionBarActivity {
 
     public static android.support.v4.app.FragmentManager fragmentManager;
 
+    private static long back_pressed;
+    private int selectedView = -1;
+
 
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     @Override
@@ -63,6 +69,27 @@ public class MainActivity extends ActionBarActivity {
         Util.setActionBarTitleFont(this);
 
         fragmentManager = getSupportFragmentManager();
+
+
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        if (back_pressed + 2000 > System.currentTimeMillis()) {
+            super.onBackPressed();
+        } else {
+            if (selectedView > 0) {
+                Intent setIntent = new Intent(getApplicationContext(), MainActivity.class);
+                setIntent.addCategory(Intent.CATEGORY_HOME);
+                setIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(setIntent);
+                displayView(0);
+            }
+            Toast.makeText(getBaseContext(), "Press once again to exit!", Toast.LENGTH_SHORT).show();
+            back_pressed = System.currentTimeMillis();
+
+        }
 
 
     }
@@ -193,18 +220,23 @@ public class MainActivity extends ActionBarActivity {
         Fragment fragment = null;
         switch (position) {
             case 0:
+                selectedView = 0;
                 fragment = new HomeFragment();
                 break;
             case 1:
+                selectedView = 1;
                 fragment = new AllCaffesFragment();
                 break;
             case 2:
+                selectedView = 2;
                 fragment = new NearbyCaffesFragment();
                 break;
             case 3:
+                selectedView = 3;
                 fragment = new SettingsFragment();
                 break;
             case 4:
+                selectedView = 4;
                 fragment = new AboutUsFragment();
                 break;
 
