@@ -148,7 +148,7 @@ public class CaffesInAreaActivity extends FragmentActivity {
                         nazivOpstine = izabranaOpstina.naziv;
                         String naziv = json.getString("naziv");
                         String adresa = json.getString("adresa");
-                        String logoURL = "https://178.33.216.114/get_logo/?title=" + json.getString("logo");
+                        String logoURL = "https://178.33.216.114/get_logo/?title=" + json.getString("logo") + ".png";
                         double lat = Double.parseDouble(json.getString("latitude"));
                         double lng = Double.parseDouble(json.getString("longitude"));
                         Opstina opstina = new Opstina(opstinaID, nazivOpstine);

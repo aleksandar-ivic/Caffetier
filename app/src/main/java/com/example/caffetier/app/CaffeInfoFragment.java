@@ -219,7 +219,7 @@ public class CaffeInfoFragment extends Fragment {
                     msg = "Error :" + ex.getMessage();
                     Toast.makeText(getActivity(), msg, Toast.LENGTH_LONG).show();
                 }
-            }/* else {
+            } else {
                 if (gcm == null) {
                     gcm = GoogleCloudMessaging.getInstance(getActivity().getParent());
                 }
@@ -235,7 +235,7 @@ public class CaffeInfoFragment extends Fragment {
                 }
 
 
-            }*/
+            }
             
 
             return msg;

@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +20,14 @@ import com.example.caffetier.app.domain.Caffe;
 import com.example.caffetier.app.util.MyHttpClient;
 import com.example.caffetier.app.util.Util;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.entity.BufferedHttpEntity;
 
 
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -31,7 +35,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 
 public class LazyAdapter extends BaseAdapter {
@@ -72,16 +78,14 @@ public class LazyAdapter extends BaseAdapter {
         adresa.setTypeface(Util.FONT_HEADINGS);
 
 
-
         for (Caffe caffe : data) {
             caffe = data.get(position);
 
             // Setting all values in listview
             naziv.setText(caffe.naziv);
             adresa.setText(caffe.adresa);
-            //GetImageTask getImageTask = new GetImageTask(caffe);
-            //getImageTask.execute();
-
+            GetImageTask getImageTask = new GetImageTask(caffe);
+            getImageTask.execute();
 
 
         }
@@ -89,11 +93,11 @@ public class LazyAdapter extends BaseAdapter {
         return vi;
     }
 
-    private class GetImageTask extends AsyncTask<Void, Void, String>{
+    private class GetImageTask extends AsyncTask<Void, Void, Bitmap> {
 
         Caffe caffe;
 
-        public GetImageTask(Caffe caffe){
+        public GetImageTask(Caffe caffe) {
             this.caffe = caffe;
         }
 
@@ -103,8 +107,27 @@ public class LazyAdapter extends BaseAdapter {
         }
 
         @Override
-        protected String doInBackground(Void... params) {
-            return "";
+        protected Bitmap doInBackground(Void... params) {
+            Bitmap pic = null;
+            try {
+                Log.i("SMRDLJIVI URL", caffe.logoUrl);
+                pic = BitmapFactory.decodeStream((InputStream) new URL(caffe.logoUrl).getContent());
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return pic;
+        }
+
+            @Override
+            protected void onPostExecute (Bitmap bitmap){
+                if (bitmap != null) {
+                    logo.setImageBitmap(bitmap);
+                } else {
+                    logo.setImageResource(R.drawable.ic_launcher);
+                }
+
+            }
         }
     }
-}

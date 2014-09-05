@@ -86,7 +86,7 @@ public class MainActivity extends ActionBarActivity {
                 startActivity(setIntent);
                 displayView(0);
             }
-            Toast.makeText(getBaseContext(), "Press once again to exit!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), "Kliknite jos jednom da bi ste izasli3.", Toast.LENGTH_SHORT).show();
             back_pressed = System.currentTimeMillis();
 
         }
