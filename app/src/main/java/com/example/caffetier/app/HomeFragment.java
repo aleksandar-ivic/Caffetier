@@ -5,29 +5,25 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.caffetier.app.adapter.MySpinnerAdapter;
-import com.example.caffetier.app.domain.Opstina;
+import com.example.caffetier.app.domain.Area;
 import com.example.caffetier.app.util.MyHttpClient;
 import com.example.caffetier.app.util.Util;
 
@@ -49,7 +45,7 @@ public class HomeFragment extends Fragment {
 
     Spinner spinner;
     ImageView imageViewLocationPin;
-    ArrayList<Opstina> opstine;
+    ArrayList<Area> opstine;
     ProgressDialog mProgressDialog;
 
     public HomeFragment() {
@@ -161,8 +157,8 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), CaffesInAreaActivity.class);
-                Opstina izabranaOpstina = (Opstina) spinner.getSelectedItem();
-                intent.putExtra("Opstina", izabranaOpstina);
+                Area izabranaArea = (Area) spinner.getSelectedItem();
+                intent.putExtra("Opstina", izabranaArea);
                 startActivity(intent);
 
             }
@@ -233,16 +229,16 @@ public class HomeFragment extends Fragment {
         protected Boolean doInBackground(String... urls) {
             String result = GET(urls[0]);
             JSONObject json = null; // convert String to JSONObject
-            opstine = new ArrayList<Opstina>();
+            opstine = new ArrayList<Area>();
             try {
                 JSONArray jsonArray = new JSONArray(result);
                 for (int i = 0; i < jsonArray.length(); i++) {
                     json = jsonArray.getJSONObject(i);
                     int id = json.getInt("id");
                     String naziv = json.getString("naziv");
-                    Opstina opstina = new Opstina(id, naziv);
-                    opstine.add(opstina);
-                    Util.allAreas.add(opstina);
+                    Area area = new Area(id, naziv);
+                    opstine.add(area);
+                    Util.allAreas.add(area);
                 }
 
             } catch (JSONException e) {

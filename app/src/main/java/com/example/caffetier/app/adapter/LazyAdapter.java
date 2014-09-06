@@ -13,43 +13,29 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.caffetier.app.R;
-import com.example.caffetier.app.domain.Caffe;
-import com.example.caffetier.app.util.MyHttpClient;
+import com.example.caffetier.app.domain.Cafe;
 import com.example.caffetier.app.util.Util;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.entity.BufferedHttpEntity;
 
-
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.MalformedURLException;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 
 public class LazyAdapter extends BaseAdapter {
 
     private Activity activity;
-    private ArrayList<Caffe> data;
+    private ArrayList<Cafe> data;
     private static LayoutInflater inflater = null;
     static ImageView logo;
     View vi;
     File sdCardDirectory = Environment.getExternalStorageDirectory();
 
-    public LazyAdapter(Activity a, ArrayList<Caffe> d) {
+    public LazyAdapter(Activity a, ArrayList<Cafe> d) {
         activity = a;
         data = d;
         inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -78,13 +64,13 @@ public class LazyAdapter extends BaseAdapter {
         adresa.setTypeface(Util.FONT_HEADINGS);
 
 
-        for (Caffe caffe : data) {
-            caffe = data.get(position);
+        for (Cafe cafe : data) {
+            cafe = data.get(position);
 
             // Setting all values in listview
-            naziv.setText(caffe.naziv);
-            adresa.setText(caffe.adresa);
-            GetImageTask getImageTask = new GetImageTask(caffe);
+            naziv.setText(cafe.naziv);
+            adresa.setText(cafe.adresa);
+            GetImageTask getImageTask = new GetImageTask(cafe);
             getImageTask.execute();
 
 
@@ -95,10 +81,10 @@ public class LazyAdapter extends BaseAdapter {
 
     private class GetImageTask extends AsyncTask<Void, Void, Bitmap> {
 
-        Caffe caffe;
+        Cafe cafe;
 
-        public GetImageTask(Caffe caffe) {
-            this.caffe = caffe;
+        public GetImageTask(Cafe cafe) {
+            this.cafe = cafe;
         }
 
         @Override
@@ -110,8 +96,8 @@ public class LazyAdapter extends BaseAdapter {
         protected Bitmap doInBackground(Void... params) {
             Bitmap pic = null;
             try {
-                Log.i("SMRDLJIVI URL", caffe.logoUrl);
-                pic = BitmapFactory.decodeStream((InputStream) new URL(caffe.logoUrl).getContent());
+                Log.i("SMRDLJIVI URL", cafe.logoUrl);
+                pic = BitmapFactory.decodeStream((InputStream) new URL(cafe.logoUrl).getContent());
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {

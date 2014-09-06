@@ -2,11 +2,8 @@ package com.example.caffetier.app;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.location.Location;
 import android.net.ConnectivityManager;
@@ -14,19 +11,15 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.example.caffetier.app.domain.Caffe;
-import com.example.caffetier.app.domain.Opstina;
+import com.example.caffetier.app.domain.Cafe;
+import com.example.caffetier.app.domain.Area;
 import com.example.caffetier.app.util.MyHttpClient;
 import com.example.caffetier.app.util.Util;
 import com.google.android.gms.common.ConnectionResult;
@@ -34,11 +27,9 @@ import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.apache.http.HttpResponse;
@@ -57,14 +48,14 @@ import java.util.ArrayList;
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class NearbyCaffesFragment extends Fragment implements GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener {
 
-    ArrayList<Caffe> allCaffes;
+    ArrayList<Cafe> allCafes;
     ProgressDialog mProgressDialog;
     GoogleMap googleMap;
     LocationClient locationClient;
     View rootView;
 
     public NearbyCaffesFragment() {
-        allCaffes = new ArrayList<Caffe>();
+        allCafes = new ArrayList<Cafe>();
     }
 
 
@@ -213,16 +204,16 @@ public class NearbyCaffesFragment extends Fragment implements GooglePlayServices
         protected Boolean doInBackground(String... urls) {
             String result = GET(urls[0]);
             JSONObject json = null;
-            allCaffes = new ArrayList<Caffe>();
+            allCafes = new ArrayList<Cafe>();
             try {
                 JSONArray jsonArray = new JSONArray(result);
                 for (int i = 0; i < jsonArray.length(); i++) {
                     json = jsonArray.getJSONObject(i);
                     int opstinaID = json.getInt("opstina");
                     String nazivOpstine = "";
-                    for (Opstina opstina : Util.allAreas) {
-                        if (opstinaID == opstina.id) {
-                            nazivOpstine = opstina.naziv;
+                    for (Area area : Util.allAreas) {
+                        if (opstinaID == area.id) {
+                            nazivOpstine = area.naziv;
                         }
                     }
                     String naziv = json.getString("naziv");
@@ -231,10 +222,10 @@ public class NearbyCaffesFragment extends Fragment implements GooglePlayServices
                     String logoURL = "C:\\Users\\Aleksandar\\AndroidStudioProjects\\Caffetier\\app\\src\\main\\res\\drawable\\redbar.png";
                     double lat = Double.parseDouble(json.getString("latitude"));
                     double lng = Double.parseDouble(json.getString("longitude"));
-                    Opstina opstina = new Opstina(opstinaID, nazivOpstine);
+                    Area area = new Area(opstinaID, nazivOpstine);
                     String url = json.getString("json_url");
-                    Caffe caffe = new Caffe(naziv, adresa, opstina, url, logoURL, logoID, lat, lng);
-                    allCaffes.add(caffe);
+                    Cafe cafe = new Cafe(naziv, adresa, area, url, logoURL, logoID, lat, lng);
+                    allCafes.add(cafe);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -266,9 +257,9 @@ public class NearbyCaffesFragment extends Fragment implements GooglePlayServices
                 CameraPosition myPosition = new CameraPosition.Builder()
                         .target(myLatLng).zoom(17).bearing(90).tilt(30).build();
 
-                for (Caffe caffe : allCaffes) {
-                    LatLng latLng = new LatLng(caffe.lat, caffe.lng);
-                    String naziv = caffe.naziv;
+                for (Cafe cafe : allCafes) {
+                    LatLng latLng = new LatLng(cafe.lat, cafe.lng);
+                    String naziv = cafe.naziv;
                     MarkerOptions marker = new MarkerOptions().position(latLng).title(naziv);
                     googleMap.addMarker(marker);
                 }
