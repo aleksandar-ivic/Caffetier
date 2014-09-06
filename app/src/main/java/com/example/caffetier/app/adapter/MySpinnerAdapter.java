@@ -9,16 +9,16 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.caffetier.app.R;
-import com.example.caffetier.app.domain.Area;
+import com.example.caffetier.app.domain.Opstina;
 import com.example.caffetier.app.util.Util;
 
 
 import java.util.List;
 
 
-public class MySpinnerAdapter extends ArrayAdapter<Area> {
+public class MySpinnerAdapter extends ArrayAdapter<Opstina> {
 
-    public MySpinnerAdapter(Context context, int resource, List<Area> objects) {
+    public MySpinnerAdapter(Context context, int resource, List<Opstina> objects) {
         super(context, resource, objects);
     }
 

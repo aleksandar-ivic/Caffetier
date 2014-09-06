@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.caffetier.app.R;
-import com.example.caffetier.app.domain.Cafe;
+import com.example.caffetier.app.domain.Kafic;
 import com.example.caffetier.app.util.Util;
 
 
@@ -29,13 +29,13 @@ import java.util.ArrayList;
 public class LazyAdapter extends BaseAdapter {
 
     private Activity activity;
-    private ArrayList<Cafe> data;
+    private ArrayList<Kafic> data;
     private static LayoutInflater inflater = null;
     static ImageView logo;
     View vi;
     File sdCardDirectory = Environment.getExternalStorageDirectory();
 
-    public LazyAdapter(Activity a, ArrayList<Cafe> d) {
+    public LazyAdapter(Activity a, ArrayList<Kafic> d) {
         activity = a;
         data = d;
         inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -64,13 +64,13 @@ public class LazyAdapter extends BaseAdapter {
         adresa.setTypeface(Util.FONT_HEADINGS);
 
 
-        for (Cafe cafe : data) {
-            cafe = data.get(position);
+        for (Kafic kafic : data) {
+            kafic = data.get(position);
 
             // Setting all values in listview
-            naziv.setText(cafe.naziv);
-            adresa.setText(cafe.adresa);
-            GetImageTask getImageTask = new GetImageTask(cafe);
+            naziv.setText(kafic.naziv);
+            adresa.setText(kafic.adresa);
+            GetImageTask getImageTask = new GetImageTask(kafic);
             getImageTask.execute();
 
 
@@ -81,10 +81,10 @@ public class LazyAdapter extends BaseAdapter {
 
     private class GetImageTask extends AsyncTask<Void, Void, Bitmap> {
 
-        Cafe cafe;
+        Kafic kafic;
 
-        public GetImageTask(Cafe cafe) {
-            this.cafe = cafe;
+        public GetImageTask(Kafic kafic) {
+            this.kafic = kafic;
         }
 
         @Override
@@ -96,8 +96,8 @@ public class LazyAdapter extends BaseAdapter {
         protected Bitmap doInBackground(Void... params) {
             Bitmap pic = null;
             try {
-                Log.i("SMRDLJIVI URL", cafe.logoUrl);
-                pic = BitmapFactory.decodeStream((InputStream) new URL(cafe.logoUrl).getContent());
+                Log.i("SMRDLJIVI URL", kafic.logoUrl);
+                pic = BitmapFactory.decodeStream((InputStream) new URL(kafic.logoUrl).getContent());
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {

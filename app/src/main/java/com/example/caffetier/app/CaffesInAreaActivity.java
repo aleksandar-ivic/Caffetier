@@ -16,8 +16,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.caffetier.app.adapter.LazyAdapter;
-import com.example.caffetier.app.domain.Cafe;
-import com.example.caffetier.app.domain.Area;
+import com.example.caffetier.app.domain.Kafic;
+import com.example.caffetier.app.domain.Opstina;
 import com.example.caffetier.app.util.MyHttpClient;
 import com.example.caffetier.app.util.Util;
 
@@ -42,10 +42,10 @@ public class CaffesInAreaActivity extends FragmentActivity {
 
     ListView list;
     LazyAdapter lazyAdapter;
-    ArrayList<Cafe> allCafes;
+    ArrayList<Kafic> allCafes;
     ProgressDialog mProgressDialog;
     TextView caffesInAreaView;
-    Area izabranaArea;
+    Opstina izabranaOpstina;
 
 
     @Override
@@ -59,7 +59,7 @@ public class CaffesInAreaActivity extends FragmentActivity {
 
         Bundle b = getIntent().getExtras();
         if(b!=null && b.containsKey("Opstina")){
-            izabranaArea = b.getParcelable("Opstina");
+            izabranaOpstina = b.getParcelable("Opstina");
         }
 
 
@@ -132,23 +132,23 @@ public class CaffesInAreaActivity extends FragmentActivity {
         protected Boolean doInBackground(String... urls) {
             String result = GET(urls[0]);
             JSONObject json = null;
-            allCafes = new ArrayList<Cafe>();
+            allCafes = new ArrayList<Kafic>();
             try {
                 JSONArray jsonArray = new JSONArray(result);
                 for (int i = 0; i < jsonArray.length(); i++) {
                     json = jsonArray.getJSONObject(i);
                     int opstinaID = json.getInt("opstina");
                     String nazivOpstine = "";
-                    if (opstinaID == izabranaArea.id){
-                        nazivOpstine = izabranaArea.naziv;
+                    if (opstinaID == izabranaOpstina.id){
+                        nazivOpstine = izabranaOpstina.naziv;
                         String naziv = json.getString("naziv");
                         String adresa = json.getString("adresa");
                         String logoURL = "https://178.33.216.114/get_logo/?title=" + json.getString("logo") + ".png";
                         double lat = Double.parseDouble(json.getString("latitude"));
                         double lng = Double.parseDouble(json.getString("longitude"));
-                        Area area = new Area(opstinaID, nazivOpstine);
+                        Opstina opstina = new Opstina(opstinaID, nazivOpstine);
                         String url = json.getString("json_url");
-                        Cafe cafe = new Cafe(naziv, adresa, area, url, logoURL, 0, lat, lng);
+                        Kafic cafe = new Kafic(naziv, adresa, opstina, url, logoURL, 0, lat, lng);
                         allCafes.add(cafe);
                     }
 
@@ -162,7 +162,7 @@ public class CaffesInAreaActivity extends FragmentActivity {
 
         @Override
         protected void onPreExecute() {
-            mProgressDialog.setMessage("Ucitavanje kafica u opstini " + izabranaArea.naziv);
+            mProgressDialog.setMessage("Ucitavanje kafica u opstini " + izabranaOpstina.naziv);
             mProgressDialog.show();
             list = (ListView) findViewById(R.id.list);
 
@@ -182,7 +182,7 @@ public class CaffesInAreaActivity extends FragmentActivity {
 
 
                 caffesInAreaView = (TextView) findViewById(R.id.kaficiUOpstini);
-                caffesInAreaView.setText("Kafici u opstini " + izabranaArea.naziv);
+                caffesInAreaView.setText("Kafici u opstini " + izabranaOpstina.naziv);
 
                 lazyAdapter = new LazyAdapter(activity, allCafes);
                 list.setAdapter(lazyAdapter);

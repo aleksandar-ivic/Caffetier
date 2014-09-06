@@ -23,7 +23,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.caffetier.app.adapter.MySpinnerAdapter;
-import com.example.caffetier.app.domain.Area;
+import com.example.caffetier.app.domain.Opstina;
 import com.example.caffetier.app.util.MyHttpClient;
 import com.example.caffetier.app.util.Util;
 
@@ -45,7 +45,7 @@ public class HomeFragment extends Fragment {
 
     Spinner spinner;
     ImageView imageViewLocationPin;
-    ArrayList<Area> opstine;
+    ArrayList<Opstina> opstine;
     ProgressDialog mProgressDialog;
 
     public HomeFragment() {
@@ -157,8 +157,8 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), CaffesInAreaActivity.class);
-                Area izabranaArea = (Area) spinner.getSelectedItem();
-                intent.putExtra("Opstina", izabranaArea);
+                Opstina izabranaOpstina = (Opstina) spinner.getSelectedItem();
+                intent.putExtra("Opstina", izabranaOpstina);
                 startActivity(intent);
 
             }
@@ -229,16 +229,16 @@ public class HomeFragment extends Fragment {
         protected Boolean doInBackground(String... urls) {
             String result = GET(urls[0]);
             JSONObject json = null; // convert String to JSONObject
-            opstine = new ArrayList<Area>();
+            opstine = new ArrayList<Opstina>();
             try {
                 JSONArray jsonArray = new JSONArray(result);
                 for (int i = 0; i < jsonArray.length(); i++) {
                     json = jsonArray.getJSONObject(i);
                     int id = json.getInt("id");
                     String naziv = json.getString("naziv");
-                    Area area = new Area(id, naziv);
-                    opstine.add(area);
-                    Util.allAreas.add(area);
+                    Opstina opstina = new Opstina(id, naziv);
+                    opstine.add(opstina);
+                    Util.sveOpstine.add(opstina);
                 }
 
             } catch (JSONException e) {

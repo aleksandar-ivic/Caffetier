@@ -6,15 +6,15 @@ import android.os.Parcelable;
 /**
  * Created by Aleksandar on 29-Jul-14.
  */
-public class Area implements Parcelable{
+public class Opstina implements Parcelable{
 
     public int id;
     public String naziv;
 
-    public Area() {
+    public Opstina() {
     }
 
-    public Area(int id, String naziv) {
+    public Opstina(int id, String naziv) {
         super();
         this.id = id;
         this.naziv = naziv;
@@ -31,19 +31,19 @@ public class Area implements Parcelable{
         dest.writeString(naziv);
     }
 
-    public static final Parcelable.Creator<Area> CREATOR = new Creator<Area>() {
+    public static final Parcelable.Creator<Opstina> CREATOR = new Creator<Opstina>() {
         @Override
-        public Area createFromParcel(Parcel source) {
-            return new Area(source);
+        public Opstina createFromParcel(Parcel source) {
+            return new Opstina(source);
         }
 
         @Override
-        public Area[] newArray(int size) {
-            return new Area[size];
+        public Opstina[] newArray(int size) {
+            return new Opstina[size];
         }
     };
 
-    private Area(Parcel in){
+    private Opstina(Parcel in){
         id = in.readInt();
         naziv = in.readString();
     }

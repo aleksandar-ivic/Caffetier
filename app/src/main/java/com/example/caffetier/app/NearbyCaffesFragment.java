@@ -18,8 +18,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.caffetier.app.domain.Cafe;
-import com.example.caffetier.app.domain.Area;
+import com.example.caffetier.app.domain.Kafic;
+import com.example.caffetier.app.domain.Opstina;
 import com.example.caffetier.app.util.MyHttpClient;
 import com.example.caffetier.app.util.Util;
 import com.google.android.gms.common.ConnectionResult;
@@ -48,14 +48,14 @@ import java.util.ArrayList;
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class NearbyCaffesFragment extends Fragment implements GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener {
 
-    ArrayList<Cafe> allCafes;
+    ArrayList<Kafic> allCafes;
     ProgressDialog mProgressDialog;
     GoogleMap googleMap;
     LocationClient locationClient;
     View rootView;
 
     public NearbyCaffesFragment() {
-        allCafes = new ArrayList<Cafe>();
+        allCafes = new ArrayList<Kafic>();
     }
 
 
@@ -204,16 +204,16 @@ public class NearbyCaffesFragment extends Fragment implements GooglePlayServices
         protected Boolean doInBackground(String... urls) {
             String result = GET(urls[0]);
             JSONObject json = null;
-            allCafes = new ArrayList<Cafe>();
+            allCafes = new ArrayList<Kafic>();
             try {
                 JSONArray jsonArray = new JSONArray(result);
                 for (int i = 0; i < jsonArray.length(); i++) {
                     json = jsonArray.getJSONObject(i);
                     int opstinaID = json.getInt("opstina");
                     String nazivOpstine = "";
-                    for (Area area : Util.allAreas) {
-                        if (opstinaID == area.id) {
-                            nazivOpstine = area.naziv;
+                    for (Opstina opstina : Util.sveOpstine) {
+                        if (opstinaID == opstina.id) {
+                            nazivOpstine = opstina.naziv;
                         }
                     }
                     String naziv = json.getString("naziv");
@@ -222,9 +222,9 @@ public class NearbyCaffesFragment extends Fragment implements GooglePlayServices
                     String logoURL = "C:\\Users\\Aleksandar\\AndroidStudioProjects\\Caffetier\\app\\src\\main\\res\\drawable\\redbar.png";
                     double lat = Double.parseDouble(json.getString("latitude"));
                     double lng = Double.parseDouble(json.getString("longitude"));
-                    Area area = new Area(opstinaID, nazivOpstine);
+                    Opstina opstina = new Opstina(opstinaID, nazivOpstine);
                     String url = json.getString("json_url");
-                    Cafe cafe = new Cafe(naziv, adresa, area, url, logoURL, logoID, lat, lng);
+                    Kafic cafe = new Kafic(naziv, adresa, opstina, url, logoURL, logoID, lat, lng);
                     allCafes.add(cafe);
                 }
             } catch (JSONException e) {
@@ -257,7 +257,7 @@ public class NearbyCaffesFragment extends Fragment implements GooglePlayServices
                 CameraPosition myPosition = new CameraPosition.Builder()
                         .target(myLatLng).zoom(17).bearing(90).tilt(30).build();
 
-                for (Cafe cafe : allCafes) {
+                for (Kafic cafe : allCafes) {
                     LatLng latLng = new LatLng(cafe.lat, cafe.lng);
                     String naziv = cafe.naziv;
                     MarkerOptions marker = new MarkerOptions().position(latLng).title(naziv);

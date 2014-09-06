@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.graphics.Typeface;
 import android.widget.TextView;
 
-import com.example.caffetier.app.domain.Area;
+import com.example.caffetier.app.domain.Opstina;
 
 import java.util.ArrayList;
 
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Util {
 
     public static Typeface FONT_HEADINGS;
-    public static ArrayList<Area> allAreas = new ArrayList<Area>();
+    public static ArrayList<Opstina> sveOpstine = new ArrayList<Opstina>();
     public static String projectID = "204476649954";
 
     public static void setActionBarTitleFont(Activity activity){

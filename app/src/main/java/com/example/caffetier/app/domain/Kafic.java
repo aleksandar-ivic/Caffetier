@@ -6,25 +6,25 @@ import android.os.Parcelable;
 /**
  * Created by Aleksandar on 27-Jul-14.
  */
-public class Cafe implements Parcelable {
+public class Kafic implements Parcelable {
 
     public String naziv;
     public String adresa;
     public String url;
     public String logoUrl;
     public int logoID;
-    public Area area;
+    public Opstina opstina;
     public double lat;
     public double lng;
 
-    public Cafe() {
+    public Kafic() {
     }
 
-    public Cafe(String naziv, String adresa, Area area, String url, String logoUrl, int logoID, double lat, double lng) {
+    public Kafic(String naziv, String adresa, Opstina opstina, String url, String logoUrl, int logoID, double lat, double lng) {
         super();
         this.naziv = naziv;
         this.adresa = adresa;
-        this.area = area;
+        this.opstina = opstina;
         this.url = url;
         this.logoUrl = logoUrl;
         this.logoID = logoID;
@@ -41,7 +41,7 @@ public class Cafe implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(naziv);
         dest.writeString(adresa);
-        dest.writeValue(area);
+        dest.writeValue(opstina);
         dest.writeString(url);
         dest.writeString(logoUrl);
         dest.writeInt(logoID);
@@ -49,22 +49,22 @@ public class Cafe implements Parcelable {
         dest.writeDouble(lng);
     }
 
-    public static final Parcelable.Creator<Cafe> CREATOR = new Creator<Cafe>() {
+    public static final Parcelable.Creator<Kafic> CREATOR = new Creator<Kafic>() {
         @Override
-        public Cafe createFromParcel(Parcel source) {
-            return new Cafe(source);
+        public Kafic createFromParcel(Parcel source) {
+            return new Kafic(source);
         }
 
         @Override
-        public Cafe[] newArray(int size) {
-            return new Cafe[size];
+        public Kafic[] newArray(int size) {
+            return new Kafic[size];
         }
     };
 
-    private Cafe(Parcel in){
+    private Kafic(Parcel in){
         naziv = in.readString();
         adresa = in.readString();
-        area = Area.CREATOR.createFromParcel(in);
+        opstina = Opstina.CREATOR.createFromParcel(in);
         url = in.readString();
         logoUrl = in.readString();
         logoID = in.readInt();
