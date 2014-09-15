@@ -1,26 +1,18 @@
 package com.example.caffetier.app.gcm;
 
 import android.app.IntentService;
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.media.audiofx.NoiseSuppressor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-import android.widget.RemoteViews;
-import android.widget.Toast;
 
-import com.example.caffetier.app.OneCaffeActivity;
+import com.example.caffetier.app.OneCafeActivity;
 import com.example.caffetier.app.R;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
 
 /**
  * Created by Aleksandar on 16-Aug-14.
@@ -95,7 +87,7 @@ public class GcmIntentService extends IntentService {
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
 
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-                new Intent(this, OneCaffeActivity.class), 0);
+                new Intent(this, OneCafeActivity.class), 0);
         /*
         Notification notification = new Notification();
         RemoteViews contentView = new RemoteViews(getPackageName(), R.layout.notification_layout);

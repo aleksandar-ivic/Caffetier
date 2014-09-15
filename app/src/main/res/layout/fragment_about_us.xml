@@ -1,22 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/aboutUsTitle"
+        android:textColor="@color/title"
+        android:textSize="30sp"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="10dp"
+        android:text="O nama"/>
     
     <TextView
-        android:id="@+id/txtLabel"
-         android:layout_width="wrap_content"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:textSize="16dp"
-        android:text="Pages View"/>
-    
-    <ImageView android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txtLabel"
-        android:src="@drawable/ic_pages"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"/>
-    
+        android:id="@+id/info"
+        android:layout_below="@+id/aboutUsTitle"
+        android:textColor="@color/title"
+        android:textSize="20sp"
+        android:paddingTop="20dp"
+        android:gravity="center_horizontal"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:id="@+id/contactUs"
+        android:layout_below="@id/info"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/roundedbutton"
+        android:textSize="20sp"
+        android:textColor="@color/background"
+        android:layout_centerHorizontal="true"/>
+
 
 </RelativeLayout>

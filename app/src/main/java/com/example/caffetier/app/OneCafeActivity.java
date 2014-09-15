@@ -8,9 +8,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.TypefaceSpan;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,13 +15,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.caffetier.app.util.MyTypefaceSpan;
 import com.example.caffetier.app.util.Util;
 
 import java.util.Locale;
 
 
-public class OneCaffeActivity extends ActionBarActivity implements ActionBar.TabListener {
+public class OneCafeActivity extends ActionBarActivity implements ActionBar.TabListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -105,9 +101,6 @@ public class OneCaffeActivity extends ActionBarActivity implements ActionBar.Tab
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -143,9 +136,9 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         // Return a PlaceholderFragment (defined as a static inner class below).
         switch (position) {
             case 0:
-                return new CaffeInfoFragment();
+                return new CafeInfoFragment();
             case 1:
-                return new CaffeLocationFragment();
+                return new CafeLocationFragment();
         }
         return null;
     }

@@ -38,13 +38,12 @@ import java.util.ArrayList;
  * Created by Aleksandar on 23-Jul-14.
  */
 //ubaci da se cuva stanje listViewa
-public class CaffesInAreaActivity extends FragmentActivity {
+public class CafesInAreaActivity extends FragmentActivity {
 
     ListView list;
     LazyAdapter lazyAdapter;
     ArrayList<Kafic> allCafes;
     ProgressDialog mProgressDialog;
-    TextView caffesInAreaView;
     Opstina izabranaOpstina;
 
 
@@ -122,9 +121,9 @@ public class CaffesInAreaActivity extends FragmentActivity {
 
     private class HttpAsyncTask extends AsyncTask<String, String, Boolean> {
 
-        CaffesInAreaActivity activity;
+        CafesInAreaActivity activity;
 
-        public HttpAsyncTask(CaffesInAreaActivity allcaffesInAreaActivity) {
+        public HttpAsyncTask(CafesInAreaActivity allcaffesInAreaActivity) {
             activity = allcaffesInAreaActivity;
         }
 
@@ -179,11 +178,6 @@ public class CaffesInAreaActivity extends FragmentActivity {
             }
 
             if (result == true) {
-
-
-                caffesInAreaView = (TextView) findViewById(R.id.kaficiUOpstini);
-                caffesInAreaView.setText("Kafici u opstini " + izabranaOpstina.naziv);
-
                 lazyAdapter = new LazyAdapter(activity, allCafes);
                 list.setAdapter(lazyAdapter);
 
@@ -191,7 +185,7 @@ public class CaffesInAreaActivity extends FragmentActivity {
                 list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent intent = new Intent(getApplicationContext(), OneCaffeActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), OneCafeActivity.class);
                         intent.putExtra("Naziv", allCafes.get(position).naziv);
                         intent.putExtra("Adresa", allCafes.get(position).adresa);
                         intent.putExtra("Logo", allCafes.get(position).logoID);

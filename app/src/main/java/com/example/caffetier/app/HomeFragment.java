@@ -50,64 +50,7 @@ public class HomeFragment extends Fragment {
 
     public HomeFragment() {
     }
-/*
-    @Override
-    public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
-        super.onCreateView(parent, name, context, attrs);
-        setContentView(R.layout.fragment_home);
 
-        Util.setActionBarTitleFont(this);
-
-
-        TextView textView1 = (TextView) parent.findViewById(R.id.textView);
-        TextView textView2 = (TextView) parent.findViewById(R.id.textView2);
-
-        textView1.setTypeface(Util.FONT_HEADINGS);
-        textView2.setTypeface(Util.FONT_HEADINGS);
-
-
-
-        mProgressDialog = new ProgressDialog(this, R.style.MyProgressDialog);
-        mProgressDialog.setCanceledOnTouchOutside(false);
-        mProgressDialog.setCancelable(false);
-
-
-        imageViewLocationPin = (ImageView) parent.findViewById(R.id.imageView);
-        imageViewLocationPin.setImageResource(R.drawable.pin);
-        final Animation animationFadeIn = AnimationUtils.loadAnimation(this, R.anim.fadein);
-        final Animation animationFadeOut = AnimationUtils.loadAnimation(this
-                , R.anim.fadeout);
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                imageViewLocationPin.startAnimation(animationFadeIn);
-                imageViewLocationPin.startAnimation(animationFadeOut);
-            }
-        };
-        Thread thread = new Thread(runnable);
-        thread.start();
-
-
-        if (isConnected()) {
-            new HttpAsyncTask(this, parent).execute("https://178.33.216.114/opstine/");
-        }
-
-
-        Button button = (Button) parent.findViewById(R.id.buttonIzaberi);
-        button.setTypeface(Util.FONT_HEADINGS);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), CaffesInAreaActivity.class);
-                Opstina izabranaOpstina = (Opstina) spinner.getSelectedItem();
-                intent.putExtra("Opstina", izabranaOpstina);
-                startActivity(intent);
-
-            }
-        });
-
-        return parent;
-    }*/
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -156,7 +99,7 @@ public class HomeFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), CaffesInAreaActivity.class);
+                Intent intent = new Intent(getActivity(), CafesInAreaActivity.class);
                 Opstina izabranaOpstina = (Opstina) spinner.getSelectedItem();
                 intent.putExtra("Opstina", izabranaOpstina);
                 startActivity(intent);

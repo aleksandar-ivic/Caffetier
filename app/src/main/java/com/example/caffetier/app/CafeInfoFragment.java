@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.net.http.SslError;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Display;
@@ -23,11 +24,14 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.caffetier.app.adapter.FreeTablesAdapter;
+import com.example.caffetier.app.adapter.MySpinnerAdapter;
 import com.example.caffetier.app.util.MyHttpClient;
 import com.example.caffetier.app.util.Util;
 import com.google.android.gms.common.ConnectionResult;
@@ -39,13 +43,21 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
-public class CaffeInfoFragment extends Fragment {
+public class CafeInfoFragment extends Fragment {
 
     WebView webView;
     View rootView;
@@ -55,6 +67,7 @@ public class CaffeInfoFragment extends Fragment {
     String regid;
     Context context;
     Button button;
+    Spinner freeTablesSpinner;
 
     public final String EXTRA_MESSAGE = "message";
     public final String PROPERTY_REG_ID = "registration_id";
@@ -85,11 +98,11 @@ public class CaffeInfoFragment extends Fragment {
         adresaView.setTypeface(Util.FONT_HEADINGS);
         ImageView logoView = (ImageView) rootView.findViewById(R.id.caffeLogo);
         logoView.setImageResource(logo);
-        Spinner freeTablesSpinner = (Spinner) rootView.findViewById(R.id.freeTablesSpinner);
+        freeTablesSpinner = (Spinner) rootView.findViewById(R.id.freeTablesSpinner);
         //ovde treba da ubacis slobodne stolove
 
         button = (Button) rootView.findViewById(R.id.sendReservation);
-        button.setText("Send reservation");
+        button.setText("Posalji rezervaciju");
         button.setEnabled(false);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,7 +111,9 @@ public class CaffeInfoFragment extends Fragment {
                 if (checkPlayServices()) {
                     gcm = GoogleCloudMessaging.getInstance(getActivity());
                     regid = getRegistrationId(context);
+
                     Toast.makeText(getActivity(), "Regid: " + regid, Toast.LENGTH_LONG).show();
+                    Log.i("Regid", regid);
                     GetContentTask getContentTask = new GetContentTask();
                     getContentTask.execute(regid.isEmpty());
                 } else {
@@ -212,6 +227,8 @@ public class CaffeInfoFragment extends Fragment {
                     regid = gcm.register(SENDER_ID);
                     msg = "Device registered, registration ID=" + regid;
 
+
+
                     sendRegistrationIdToBackend();
 
                     storeRegistrationId(context, regid);
@@ -253,6 +270,11 @@ public class CaffeInfoFragment extends Fragment {
         @Override
         public void onPageFinished(WebView view, String url) {
             Toast.makeText(getActivity(), "Ucitana je mapa, mozete izvrsiti rezervaciju.", Toast.LENGTH_LONG).show();
+            //ovo mora dinamicki
+            String[] freeTables = getActivity().getResources().getStringArray(R.array.stolovi);
+            List<String> tablesList = Arrays.asList(freeTables);
+            FreeTablesAdapter adapter = new FreeTablesAdapter(getActivity(), R.layout.spinner_tables_item, tablesList);
+            freeTablesSpinner.setAdapter(adapter);
             button.setEnabled(true);
         }
 

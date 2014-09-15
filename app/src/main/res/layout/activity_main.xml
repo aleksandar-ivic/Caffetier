@@ -1,21 +1,15 @@
-<android.support.v4.widget.DrawerLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <!-- Framelayout to display Fragments -->
+
     <RelativeLayout
         android:id="@+id/frame_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-
-
-
-
-
-        </RelativeLayout>
+    </RelativeLayout>
 
     <!-- Listview to display slider menu -->
     <ListView
@@ -25,7 +19,7 @@
         android:layout_gravity="start"
         android:choiceMode="singleChoice"
         android:divider="@color/title"
-        android:dividerHeight="1dp"        
+        android:dividerHeight="1dp"
         android:listSelector="@drawable/list_selector"
-        android:background="@color/background"/>
+        android:background="@color/background" />
 </android.support.v4.widget.DrawerLayout>

@@ -4,7 +4,6 @@ package com.example.caffetier.app;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
-import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -27,7 +26,7 @@ import java.io.IOException;
 import java.util.List;
 
 
-public class CaffeLocationFragment extends Fragment implements GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener {
+public class CafeLocationFragment extends Fragment implements GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener {
 
     GoogleMap googleMap;
     LocationClient locationClient;
@@ -67,7 +66,7 @@ public class CaffeLocationFragment extends Fragment implements GooglePlayService
     private void setUpMapIfNeeded() {
         if (googleMap == null) {
             // Try to obtain the map from the SupportMapFragment.
-            googleMap = ((SupportMapFragment) OneCaffeActivity.fragmentManager
+            googleMap = ((SupportMapFragment) OneCafeActivity.fragmentManager
                     .findFragmentById(R.id.location_map)).getMap();
             // Check if we were successful in obtaining the map.
             if (googleMap != null)
@@ -92,7 +91,7 @@ public class CaffeLocationFragment extends Fragment implements GooglePlayService
 
         if (googleMap == null) {
             // Try to obtain the map from the SupportMapFragment.
-            googleMap = ((SupportMapFragment) OneCaffeActivity.fragmentManager
+            googleMap = ((SupportMapFragment) OneCafeActivity.fragmentManager
                     .findFragmentById(R.id.location_map)).getMap();
             // Check if we were successful in obtaining the map.
             if (googleMap != null)

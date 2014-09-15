@@ -10,10 +10,19 @@
     <!-- Nav Drawer Menu Items -->
     <string-array name="nav_drawer_items">
         <item>Pocetna</item>
-        <item>Svi kafici</item>
         <item>Kafici u blizini</item>
-        <item>Podesavanja</item>
-        <item>Kontakt</item>
+        <item>O nama</item>
+    </string-array>
+
+    <string-array name="stolovi">
+        <item>1</item>
+        <item>2</item>
+        <item>6</item>
+        <item>8</item>
+        <item>9</item>
+        <item>14</item>
+        <item>16</item>
+        <item>18</item>
     </string-array>
 
     <!-- Nav Drawer List Item Icons -->
@@ -30,5 +39,8 @@
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
+
+    <string name="aboutUs">Razvojni tim se sastoji od tri clana, Aleksandra, Matije i Branka. Svi smo studeni Fakulteta
+    Organizacionih Nauka u Beogradu. Ukoliko zelite da nas obavestite o necemu ili da postanete deo sistema Caffetier</string>
 
 </resources>

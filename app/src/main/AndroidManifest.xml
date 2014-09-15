@@ -18,11 +18,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CaffesInAreaActivity"
+            android:name=".CafesInAreaActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.example.caffetier.app.OneCaffeActivity"
+            android:name=".OneCafeActivity"
             android:label="Caffetier"
             android:screenOrientation="portrait"/>
 

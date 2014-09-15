@@ -12,15 +12,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class SettingsFragment extends Fragment {
+public class AllCafesFragment extends Fragment {
 	
-	public SettingsFragment(){}
+	public AllCafesFragment(){}
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
  
-        View rootView = inflater.inflate(R.layout.fragment_settings, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_all_caffes, container, false);
          
         return rootView;
     }

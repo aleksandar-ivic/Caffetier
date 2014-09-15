@@ -2,6 +2,7 @@ package com.example.caffetier.app;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.app.ProgressDialog;
@@ -30,6 +31,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.apache.http.HttpResponse;
@@ -46,7 +48,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class NearbyCaffesFragment extends Fragment implements GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener {
+public class NearbyCafesFragment extends Fragment implements GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener {
 
     ArrayList<Kafic> allCafes;
     ProgressDialog mProgressDialog;
@@ -54,7 +56,7 @@ public class NearbyCaffesFragment extends Fragment implements GooglePlayServices
     LocationClient locationClient;
     View rootView;
 
-    public NearbyCaffesFragment() {
+    public NearbyCafesFragment() {
         allCafes = new ArrayList<Kafic>();
     }
 
@@ -262,9 +264,27 @@ public class NearbyCaffesFragment extends Fragment implements GooglePlayServices
                     String naziv = cafe.naziv;
                     MarkerOptions marker = new MarkerOptions().position(latLng).title(naziv);
                     googleMap.addMarker(marker);
+
                 }
                 googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(myPosition));
-
+                googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                    @Override
+                    public boolean onMarkerClick(Marker marker) {
+                        for (Kafic cafe : allCafes){
+                            if (cafe.naziv.equals(marker.getTitle())){
+                                Intent intent = new Intent(getActivity(), OneCafeActivity.class);
+                                intent.putExtra("Naziv", cafe.naziv);
+                                intent.putExtra("Adresa", cafe.adresa);
+                                intent.putExtra("Logo", cafe.logoID);
+                                intent.putExtra("Latitude", cafe.lat);
+                                intent.putExtra("Longitude", cafe.lng);
+                                startActivity(intent);
+                                return true;
+                            }
+                        }
+                        return false;
+                    }
+                });
             }
 
         }

@@ -8,10 +8,8 @@ import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -86,7 +84,7 @@ public class MainActivity extends ActionBarActivity {
                 startActivity(setIntent);
                 displayView(0);
             }
-            Toast.makeText(getBaseContext(), "Kliknite jos jednom da bi ste izasli3.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), "Kliknite jos jednom da bi ste izasli.", Toast.LENGTH_SHORT).show();
             back_pressed = System.currentTimeMillis();
 
         }
@@ -113,16 +111,12 @@ public class MainActivity extends ActionBarActivity {
         navDrawerItems = new ArrayList<NavDrawerItem>();
 
         // adding nav drawer items to array
-        // Home
+        // Pocetna
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons.getResourceId(0, -1)));
-        // Find People
+        // Kafici u blizini
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(1, -1)));
-        // Photos
+        // O nama
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons.getResourceId(2, -1)));
-        // Communities, Will add a counter here
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons.getResourceId(3, -1)));
-        // Pages
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], navMenuIcons.getResourceId(4, -1)));
 
 
         // Recycle the typed array
@@ -193,8 +187,6 @@ public class MainActivity extends ActionBarActivity {
         }
         // Handle action bar actions click
         switch (item.getItemId()) {
-            case R.id.action_settings:
-                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -207,7 +199,6 @@ public class MainActivity extends ActionBarActivity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         // if nav drawer is opened, hide the action items
         boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-        menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -225,21 +216,12 @@ public class MainActivity extends ActionBarActivity {
                 break;
             case 1:
                 selectedView = 1;
-                fragment = new AllCaffesFragment();
+                fragment = new NearbyCafesFragment();
                 break;
             case 2:
                 selectedView = 2;
-                fragment = new NearbyCaffesFragment();
-                break;
-            case 3:
-                selectedView = 3;
-                fragment = new SettingsFragment();
-                break;
-            case 4:
-                selectedView = 4;
                 fragment = new AboutUsFragment();
                 break;
-
             default:
                 break;
         }
